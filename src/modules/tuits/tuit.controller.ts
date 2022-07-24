@@ -3,7 +3,7 @@ import { Controller, Param, Get, Post, Body, HttpCode,
 
 import { Tuit } from 'src/modules/tuits/tuit.entity';
 import { TuitService } from "./tuit.service";
-import { CreateTuitDto, UpdateTuitDto } from "./dto";
+import { CreateTuitDto, UpdateTuitDto, TuitDto } from "./dto";
 
 
 @Controller('tuit')
@@ -15,31 +15,31 @@ export class TuitController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  getTuits(): Tuit[]{
+  getTuits(): TuitDto[]{
     return this.tuitService.getTuits();
   }
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  getTuit(@Param('id') id: string): Tuit {
+  getTuit(@Param('id') id: string): TuitDto {
     return this.tuitService.getTuit(id);
   }
 
   @Post('/add')
   @HttpCode(HttpStatus.CREATED)
-  postTuits(@Body() tuit: CreateTuitDto): Tuit {
+  postTuits(@Body() tuit: CreateTuitDto): TuitDto {
     return this.tuitService.createTuit(tuit);
   }
 
   @Patch('/:id')
   @HttpCode(HttpStatus.OK)
-  patchTuit(@Param('id') id: string, @Body() tuit: UpdateTuitDto): Tuit {
+  patchTuit(@Param('id') id: string, @Body() tuit: UpdateTuitDto): TuitDto {
     return this.tuitService.updateTuit(id, tuit);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.OK)
-  deleteTuit(@Param('id') id: string): Tuit {
+  deleteTuit(@Param('id') id: string): TuitDto {
     return this.tuitService.deleteTuit(id);
   }
 }

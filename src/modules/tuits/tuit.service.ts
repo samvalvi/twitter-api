@@ -1,18 +1,18 @@
 import { Injectable, HttpException, HttpStatus, UnprocessableEntityException } from "@nestjs/common";
 
 import { Tuit } from 'src/modules/tuits/tuit.entity';
-import { CreateTuitDto, UpdateTuitDto } from "./dto";
+import { CreateTuitDto, UpdateTuitDto, TuitDto } from "./dto";
 
 
 @Injectable()
 export class TuitService {
   private tuits: Tuit[] = [];
 
-  getTuits(): Tuit[] {
+  getTuits(): TuitDto[] {
     return this.tuits;
   }
 
-  getTuit(id: string): Tuit {
+  getTuit(id: string): TuitDto {
     const tuit = this.tuits.find(tuit => tuit.id === id);
 
     if (!tuit) {
@@ -22,7 +22,7 @@ export class TuitService {
     return tuit;
   }
 
-  createTuit(tuit: CreateTuitDto): Tuit {
+  createTuit(tuit: CreateTuitDto): TuitDto {
     const exist = this.tuits.find( x => x.message === tuit.message);
 
     if (exist) {
@@ -35,7 +35,7 @@ export class TuitService {
     }
   }
 
-  updateTuit(id: string, tuit: UpdateTuitDto): Tuit {
+  updateTuit(id: string, tuit: UpdateTuitDto): TuitDto {
     const tuitToUpdate = this.tuits.find( x => x.id === id);
 
     if(!tuitToUpdate) {
@@ -46,7 +46,7 @@ export class TuitService {
     return tuitToUpdate;
   }
 
-  deleteTuit(id: string): Tuit {
+  deleteTuit(id: string): TuitDto {
     const tuitToDelete = this.tuits.find( x => x.id === id);
 
     if(!tuitToDelete) {
